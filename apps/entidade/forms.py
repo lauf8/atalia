@@ -20,4 +20,4 @@ class MarconForm(forms.Form):
         'data-mask': '000-000-000'
     }))
     demolay = forms.BooleanField(required=True)
-    
+    parentesco = forms.ChoiceField(choices=CHOICES_PARENTESCO ) 
