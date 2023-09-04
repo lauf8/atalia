@@ -1,4 +1,5 @@
 from django.shortcuts import render
-
-def home(request):
-    return render(request, 'home/index.html')
+from atalia.settings import BASE_DIR
+def home(response):
+    print(BASE_DIR)
+    return render(response, 'atalia/index.html')
