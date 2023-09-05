@@ -19,5 +19,9 @@ class MarconForm(forms.Form):
         'class': 'form-control',
         'data-mask': '000-000-000'
     }))
+    parentesco = forms.ChoiceField(widget=forms.Select(attrs={
+        'class': 'form-control',
+    }), choices=CHOICES_PARENTESCO)
     demolay = forms.BooleanField(required=True)
-    parentesco = forms.ChoiceField(choices=CHOICES_PARENTESCO ) 
+
+    

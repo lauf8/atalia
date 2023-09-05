@@ -26,7 +26,6 @@ class Membro(models.Model):
     fdj = models.BooleanField(default=False)
     rosa_do_oriente = models.BooleanField(default=False)
     clube_da_fraternidade = models.BooleanField(default=False)
-   
     parentesco_maconico = models.CharField(max_length=20, choices=CHOICES_PARENTESCO,default= 'SEM_PARENTESCO')
     entidade =  models.ForeignKey(Entidade, on_delete=models.CASCADE)
     ativo = models.BooleanField(default=True)
