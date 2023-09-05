@@ -36,7 +36,7 @@ class Membro(models.Model):
 
 
 class Patrimonio(models.Model):
-    nome = models.CharField(max_length=75, unique=True)
+    nome = models.CharField(max_length=75)
     quantidade = models.IntegerField()
     entidade =  models.ForeignKey(Entidade, on_delete=models.CASCADE)
 
