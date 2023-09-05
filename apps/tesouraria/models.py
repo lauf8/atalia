@@ -34,7 +34,7 @@ class Contas(models.Model):
     tipo_despesa = models.ForeignKey(Tipo_conta, on_delete=models.CASCADE)
     fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
     data_recebimento = models.DateField()
-    valor = models.DecimalField(max_digits=6, decimal_places=2)
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
     pagamento = models.BooleanField(default=False)
     descricao = models.TextField(blank=True, null=True)
     
@@ -48,9 +48,9 @@ class Contas(models.Model):
 class Arrecadacao(models.Model):
     entidade =  models.ForeignKey(Entidade, on_delete=models.CASCADE)
     tipo_arrecadacao = models.ForeignKey(Tipo_arrecadacao, on_delete=models.CASCADE)
-    pagadaor = models.CharField(max_length=75)
+    pagador = models.CharField(max_length=75)
     data_recebimento = models.DateField()
-    valor = models.DecimalField(max_digits=6, decimal_places=2)
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
     descricao = models.TextField(blank=True, null=True)
     
     def __str__(self):
