@@ -21,6 +21,7 @@ class ContaForms(forms.Form):
             )
     )
     valor = forms.IntegerField()
-    pagamento = forms.BooleanField()
-    descricao = forms.Textarea()
+    descricao = forms.CharField()
+    pago = forms.BooleanField()
+    
     

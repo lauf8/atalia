@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import (create_marcon)
+from .views import (conta_create)
 urlpatterns = [
     #marcon
-    path('despesa/create',create_marcon, name='create_marcon' ),
+    path('despesa/create',conta_create, name='conta_create' ),
 
 
 
