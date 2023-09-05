@@ -1,6 +1,6 @@
 from django import forms
 from apps.entidade.models import Entidade
-from .models import Tipo_arrecadacao, Tipo_conta, Fornecedor
+from .models import Tipo_arrecadacao, Tipo_conta, Fornecedor, CHOICES_PIX
 
 class ContaForms(forms.Form):
     
@@ -24,6 +24,19 @@ class ContaForms(forms.Form):
     descricao = forms.CharField()
     pago = forms.BooleanField()
     
+class FornecedorForm(forms.Form):
+    nome = forms.CharField()
+    celular = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'data-mask': '000-000-000'
+    }))
+    
+    tipo_pix = forms.ChoiceField(widget=forms.Select(attrs={
+        'class': 'form-control',
+    }), choices=CHOICES_PIX)
+    pix = forms.CharField(required=False)
+
+    
 
 class EntradaForms(forms.Form):
     
@@ -41,8 +54,3 @@ class EntradaForms(forms.Form):
                 }
             )
     )
-    valor = forms.DecimalField()
-    descricao = forms.CharField()
-    pago = forms.BooleanField()
-    
-    

@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .forms import ContaForms, EntradaForms
-from .models import Contas, Arrecadacao
+from .forms import ContaForms, EntradaForms, FornecedorForm
+from .models import Contas, Arrecadacao, Fornecedor
 
 def conta_create(request):
     if request.method == "POST":
@@ -13,8 +13,6 @@ def conta_create(request):
             valor = form.cleaned_data['valor']
             descricao = form.cleaned_data['descricao']
             pago = form.cleaned_data['pago']
-    
-    
             conta = Contas()
             conta.entidade = entidade
             conta.tipo_despesa = tipo_despesa
@@ -23,10 +21,7 @@ def conta_create(request):
             conta.valor = valor
             conta.descricao = descricao
             conta.pagamento = pago
-            conta.save()
-            
-
-            
+            conta.save()   
     else:
         form = ContaForms()
     context = {
@@ -57,10 +52,7 @@ def entrada_create(request):
             entrada.valor = valor
             entrada.descricao = descricao
             entrada.pagamento = pago
-            entrada.save()
-            
-
-            
+            entrada.save() 
     else:
         form = EntradaForms()
     context = {
@@ -68,5 +60,28 @@ def entrada_create(request):
             "title": 'Cadastrar Entrada',
             "title_form" : 'Cadastrar Entrada'
         }
-    
+    return render(request, 'tesouraria/form.html', context)
+
+
+def fornecedor_create(request):
+    if request.method == "POST":
+        form = FornecedorForm(request.POST)
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+            celular = form.cleaned_data['celular']
+            tipo_pix = form.cleaned_data['tipo_pix']
+            pix = form.cleaned_data['pix']
+            forcenedor = Fornecedor()
+            forcenedor.nome = nome
+            forcenedor.celular = celular
+            forcenedor.tipo_pix = tipo_pix
+            forcenedor.pix = pix
+            forcenedor.save()
+    else:
+        form = FornecedorForm()
+    context = {
+            "form": form,
+            "title": 'Cadastrar Fornecedor',
+            "title_form" : 'Cadastrar Fornecedor'
+        }
     return render(request, 'tesouraria/form.html', context)

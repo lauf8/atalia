@@ -1,16 +1,19 @@
 from django.db import models
 from apps.entidade.models import Entidade
 
-class Fornecedor(models.Model):
-    nome = models.CharField(max_length=75, unique=True)
-    celular = models.CharField(max_length=15)
-    CHOICES_PIX = [
+CHOICES_PIX = [
+    ('Sem', 'Sem Pix'),
     ('CPF', 'CPF'),
     ('CNPJ', 'CNPJ'),
     ('EMAIL', 'E-mail'),
     ('CHAVE', 'Chave Aleatória'),
     ('TELEFONE', 'Telefone'),
 ]
+
+class Fornecedor(models.Model):
+    nome = models.CharField(max_length=75, unique=True)
+    celular = models.CharField(max_length=15)
+   
     tipo_pix = models.CharField(max_length=8, choices=CHOICES_PIX,blank=True, null=True)
     pix = models.CharField(max_length=40, blank=True, null=True)
     
