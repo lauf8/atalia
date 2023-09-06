@@ -55,6 +55,8 @@ class Arrecadacao(models.Model):
     data_recebimento = models.DateField()
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     descricao = models.TextField(blank=True, null=True)
+    pagamento = models.BooleanField(default=False)
+
     
     def __str__(self):
         return self.tipo_arrecadacao + self.valor

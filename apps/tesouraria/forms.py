@@ -22,7 +22,7 @@ class ContaForms(forms.Form):
     )
     valor = forms.DecimalField()
     descricao = forms.CharField()
-    pago = forms.BooleanField()
+    pago = forms.BooleanField(required=False)
     
 class FornecedorForm(forms.Form):
     nome = forms.CharField()
@@ -54,3 +54,8 @@ class EntradaForms(forms.Form):
                 }
             )
     )
+    valor = forms.DecimalField()
+
+    descricao = forms.CharField()
+
+    pago = forms.BooleanField(required=False)

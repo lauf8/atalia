@@ -29,7 +29,7 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Total de Gastos</h5>
-                      <span class="h2 font-weight-bold mb-0">350,897</span>
+                      <span class="h2 font-weight-bold mb-0">{{total_despesas}}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
@@ -48,7 +48,7 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Total de Receita</h5>
-                      <span class="h2 font-weight-bold mb-0">2,356</span>
+                      <span class="h2 font-weight-bold mb-0">{{total_entradas}}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
@@ -63,6 +63,102 @@
             
             
           </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class = "col-xl-6 col-md-6">
+            <h3 class = "text-white d-inline-block mb-0">Despesas</h3>
+            <div class="row">
+              <div class = "col-xl-6 col-md-6">
+                <a class="btn btn-success" href="#" role="button">Ver todas as despesas</a>
+
+              </div>
+            </div>
+            <table class="table table-light">
+              <thead class="">
+                <tr>
+                  <th scope="col" class="sort" data-sort="name">Fornecedor</th>
+                  <th scope="col" class="sort" data-sort="budget">Tipo</th>
+                  <th scope="col" class="sort" data-sort="status">Valor</th>
+                  <th scope="col">Pago</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for despesa in despesas  %}
+                <tr>
+                  <td>
+                    {{despesa.fornecedor}}
+                  </td>
+                  <td>
+                    {{despesa.tipo_despesa}}
+                  </td>
+                  <td>
+                    {{despesa.valor}}
+                  </td>
+                  <td> {% if despesa.pagamento == False  %}
+                    <img src="/static/assets/icons/x.svg">
+                    {% else %}
+                    <img src="/static/assets/icons/check.svg">
+                    {% endif %}
+                    
+
+                  </td>
+                  <td>
+                    <img src="/static/assets/icons/eye.svg">
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          
+        </div>
+
+      <div class = "col-xl-6 col-md-6">
+          <h3 class ="text-white d-inline-block mb-0" >Entradas</h3>
+       
+          <table class="table table-light">
+            <thead class="">
+              <tr>
+                <th scope="col" class="sort" data-sort="name">Pagador</th>
+                <th scope="col" class="sort" data-sort="budget">Tipo</th>
+                <th scope="col" class="sort" data-sort="status">Valor</th>
+                <th scope="col">Pago</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for entrada in entradas  %}
+              <tr>
+                <td>
+                  {{entrada.pagador}}
+                </td>
+                <td>
+                  {{entrada.tipo_arrecadacao}}
+                </td>
+                <td>
+                  {{entrada.valor}}
+                </td>
+                <td> {% if entrada.pagamento == False  %}
+                  <img src="/static/assets/icons/x.svg">
+                  {% else %}
+                  <img src="/static/assets/icons/check.svg">
+                  {% endif %}
+                  
+
+                </td>
+                <td>
+                  
+                  <img src="/static/assets/icons/eye.svg">
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        
+      </div>
+
         </div>
       </div>
     </div>
