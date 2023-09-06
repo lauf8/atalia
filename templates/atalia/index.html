@@ -15,11 +15,12 @@
         <div class="header-body">
           <div class="row align-items-center py-4">
             <div class="col-lg-6 col-7">
-              <h6 class="h2 text-white d-inline-block mb-0">Loja Atalia Sertaneja</h6>
+              <h6 class="h2 text-white d-inline-block mb-0">{{title}}</h6>
               
             </div>
-           
+            
           </div>
+          
           <!-- Card stats -->
           <div class="row">
             <div class="col-xl-6 col-md-6">
@@ -56,68 +57,81 @@
                       </div>
                     </div>
                   </div>
-                  
                 </div>
               </div>
             </div>
-            
-            
           </div>
         </div>
       </div>
-      <div class="container-fluid">
-        <div class="row">
-          <div class = "col-xl-6 col-md-6">
-            <h3 class = "text-white d-inline-block mb-0">Despesas</h3>
-            <div class="row">
-              <div class = "col-xl-6 col-md-6">
-                <a class="btn btn-success" href="#" role="button">Ver todas as despesas</a>
+     
+    </div>
+    <br>
 
-              </div>
+    <!-- Page content -->
+    <body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container-fluid">
+      <div class="row">
+        <div class = "col-xl-6 col-md-6">
+          <h3 >Despesas</h3>
+          <div class="row">
+            <div class = "col-xl-12 col-md-12">
+              <a class="btn btn-info" href="#" role="button">Ver todas</a>
+              <a class="btn btn-success" href="#" role="button">Adicionar Despesa</a>
+              <br>
             </div>
-            <table class="table table-light">
-              <thead class="">
-                <tr>
-                  <th scope="col" class="sort" data-sort="name">Fornecedor</th>
-                  <th scope="col" class="sort" data-sort="budget">Tipo</th>
-                  <th scope="col" class="sort" data-sort="status">Valor</th>
-                  <th scope="col">Pago</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for despesa in despesas  %}
-                <tr>
-                  <td>
-                    {{despesa.fornecedor}}
-                  </td>
-                  <td>
-                    {{despesa.tipo_despesa}}
-                  </td>
-                  <td>
-                    {{despesa.valor}}
-                  </td>
-                  <td> {% if despesa.pagamento == False  %}
-                    <img src="/static/assets/icons/x.svg">
-                    {% else %}
-                    <img src="/static/assets/icons/check.svg">
-                    {% endif %}
-                    
+            
+          </div>
+          <br>
+          <table class="table table-light">
+            <thead class="">
+              <tr>
+                <th scope="col" class="sort" data-sort="name">Fornecedor</th>
+                <th scope="col" class="sort" data-sort="budget">Tipo</th>
+                <th scope="col" class="sort" data-sort="status">Valor</th>
+                <th scope="col">Pago</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for despesa in despesas  %}
+              <tr>
+                <td>
+                  {{despesa.fornecedor}}
+                </td>
+                <td>
+                  {{despesa.tipo_despesa}}
+                </td>
+                <td>
+                  {{despesa.valor}}
+                </td>
+                <td> {% if despesa.pagamento == False  %}
+                  <img src="/static/assets/icons/x.svg">
+                  {% else %}
+                  <img src="/static/assets/icons/check.svg">
+                  {% endif %}
+                  
 
-                  </td>
-                  <td>
-                    <img src="/static/assets/icons/eye.svg">
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          
+                </td>
+                <td>
+                  <img src="/static/assets/icons/eye.svg">
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        
         </div>
-
-      <div class = "col-xl-6 col-md-6">
-          <h3 class ="text-white d-inline-block mb-0" >Entradas</h3>
-       
+        <div class = "col-xl-6 col-md-6">
+          <h3 >Entradas</h3>
+          <div class="row">
+            <div class = "col-xl-12 col-md-12">
+              <a class="btn btn-info" href="#" role="button">Ver todas</a>
+              <a class="btn btn-success" href="#" role="button">Adicionar Entrada</a>
+              <br>
+            </div>
+            <br>
+          </div>
+          <br>
           <table class="table table-light">
             <thead class="">
               <tr>
@@ -158,19 +172,116 @@
           </table>
         
       </div>
+    </div>
+      <div class="row">
+        <div class = "col-xl-12 col-md-12">
 
+          <h3 >Membros</h3>
+          <div class="row">
+            <div class = "col-xl-12 col-md-12">
+              <a class="btn btn-info" href="#" role="button">Ver todos</a>
+              <a class="btn btn-success" href="#" role="button">Adicionar Membros</a>
+              <br>
+              
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class = "col-xl-12 col-md-12">
+              <table class="table table-light">
+                <thead class="">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">Nome</th>
+                    <th scope="col" class="sort" data-sort="budget">Entidade</th>
+                    <th scope="col" class="sort" data-sort="status">Data de Nascimento</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for membro in membros  %}
+                  <tr>
+                    <td>
+                      {{membro.nome}}
+                    </td>
+                    <td>
+                      {{membro.entidade}}
+                    </td>
+                    <td>
+                      {{membro.data_nascimento}}
+                    </td>
+                    <td>
+                      <img src="/static/assets/icons/eye.svg">
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>  
+             
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+      <div class="row">
+        <div class = "col-xl-12 col-md-12">
 
-    <!-- Page content -->
-    <div class="container-fluid mt--6">
+          <h3 >Membros</h3>
+          <div class="row">
+            <div class = "col-xl-12 col-md-12">
+              <a class="btn btn-info" href="#" role="button">Ver todos</a>
+              <a class="btn btn-success" href="#" role="button">Adicionar Membros</a>
+              <br>
+              
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class = "col-xl-12 col-md-12">
+              <table class="table table-light">
+                <thead class="">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">Nome</th>
+                    <th scope="col" class="sort" data-sort="budget">Quantidade</th>
+                    <th scope="col" class="sort" data-sort="status">Entidade</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for patrimonio in patrimonios  %}
+                  <tr>
+                    <td>
+                      {{patrimonio.nome}}
+                    </td>
+                    <td>
+                      {{patrimonio.quantidade }}
+                    </td>
+                    <td>
+                      {{patrimonio.entidade}}
+                    </td>
+                    <td>
+                      <img src="/static/assets/icons/eye.svg">
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>  
+             
+            </div>
+          </div>
+        </div>
+      </div>  
+        
+
+    
+
+    
+    
       
       
 
       {% include "includes/footer.html" %}
-
+      
     </div>
+  </div>
 
 {% endblock content %}
 

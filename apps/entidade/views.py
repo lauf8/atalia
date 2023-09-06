@@ -253,6 +253,8 @@ def patrimonio_create(request):
 def list_everthing(request):
     despesas = Contas.objects.all()
     entradas = Arrecadacao.objects.all()
+    membros = Membro.objects.all().order_by('-id')[:5][::-1]
+    patrimonios = Patrimonio.objects.all().order_by('-id')[:5][::-1]
     valor_despesas = []
     valor_entradas = []
     
@@ -270,8 +272,11 @@ def list_everthing(request):
     context = {
         'despesas' : despesas,
         'entradas' : entradas,
+        'membros' : membros,
+        'patrimonios' : patrimonios,
         'total_despesas' : total_despesas,
         'total_entradas' : total_entradas
+        
     }
         
     return render(request,'atalia/index.html', context)
