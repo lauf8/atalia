@@ -1,6 +1,7 @@
 from django import forms
 from apps.entidade.models import Entidade
 from .models import Tipo_arrecadacao, Tipo_conta, Fornecedor, CHOICES_PIX
+from ..entidade.forms import CHOICES_SIM_OU_NAO
 
 class ContaForms(forms.Form):
     
@@ -22,7 +23,9 @@ class ContaForms(forms.Form):
     )
     valor = forms.DecimalField()
     descricao = forms.CharField()
-    pago = forms.BooleanField(required=False)
+    pago = forms.ChoiceField(widget=forms.Select(attrs={
+        'class': 'form-control',
+    }), choices=CHOICES_SIM_OU_NAO)
     
 class FornecedorForm(forms.Form):
     nome = forms.CharField()
@@ -58,4 +61,6 @@ class EntradaForms(forms.Form):
 
     descricao = forms.CharField()
 
-    pago = forms.BooleanField(required=False)
+    pago = forms.ChoiceField(widget=forms.Select(attrs={
+        'class': 'form-control',
+    }), choices=CHOICES_SIM_OU_NAO)
