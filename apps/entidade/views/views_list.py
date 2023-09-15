@@ -107,3 +107,12 @@ def list_members(request):
     }
         
     return render(request,'atalia/members.html', context)
+
+def list_members_especific(request,pk):
+    entidade = get_object_or_404(Entidade, pk=pk)
+    membros = Membro.objects.filter(entidade_id=entidade.pk)
+    context = {
+        'membros' : membros,
+    }
+        
+    return render(request,'atalia/members.html', context)
