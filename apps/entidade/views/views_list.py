@@ -2,6 +2,8 @@ from django.shortcuts import render
 from ..forms import MarconForm, ClubeForm, DemolayForm, EscudeiroForm, FdjForm, AbelinhaForm, PatrimonioForm
 from ..models import Entidade, Membro, Patrimonio
 from apps.tesouraria.models import Arrecadacao, Contas
+from django.shortcuts import get_object_or_404
+
 
 
 def list_everthing(request):
@@ -37,11 +39,12 @@ def list_everthing(request):
     return render(request,'atalia/index.html', context)
 
 
-def list_marcon(request):
-    despesas = Contas.objects.filter(entidade='Loja')
-    entradas = Arrecadacao.objects.all(entidade='Loja')
-    membros = Membro.objects.all().order_by('-id')[:5][::-1]
-    patrimonios = Patrimonio.objects.all().order_by('-id')[:5][::-1]
+def list_entidade_especific(request,pk):
+    entidade = get_object_or_404(Entidade, pk=pk)
+    despesas = Contas.objects.filter(entidade_id=entidade.pk).all()
+    entradas = Arrecadacao.objects.filter(entidade_id=entidade.pk).all()
+    membros = Membro.objects.filter(entidade_id=entidade.pk).all().order_by('-id')[:5][::-1]
+    patrimonios = Patrimonio.objects.filter(entidade_id=entidade.pk).all().order_by('-id')[:5][::-1]
     valor_despesas = []
     valor_entradas = []
     
@@ -63,8 +66,35 @@ def list_marcon(request):
         'patrimonios' : patrimonios,
         'total_despesas' : total_despesas,
         'total_entradas' : total_entradas,
-        'title' : 'Maçonaria',
+        'title' : entidade.nome,
+        'entidade' : entidade,
         
     }
         
-    return render(request,'entidade/membros/marcon/index.html', context)
+    return render(request,'entidade/membros/generics/index.html', context)
+
+
+
+
+def list_patrimonio(request):
+    
+    patrimonios = Patrimonio.objects.all()
+    context = {
+        'patrimonios' : patrimonios,
+        'title' : 'Patrimônios',
+        
+    }
+        
+    return render(request,'entidade/patrimonio/list_patrimonio.html', context)
+
+def list_patrimonio_especifc(request,pk):
+    patrimonios = Patrimonio.objects.filter(entidade_id=pk)
+    entidade = get_object_or_404(Entidade, pk=pk)
+    title = "Patrimonios " +  entidade.nome 
+    context = {
+        'patrimonios' : patrimonios,
+        'title' : title
+        
+    }
+        
+    return render(request,'entidade/patrimonio/list_patrimonio.html', context)

@@ -33,7 +33,7 @@ class Tipo_arrecadacao(models.Model):
         return self.nome
 
 class Contas(models.Model):
-    entidade =  models.ForeignKey(Entidade, on_delete=models.CASCADE)
+    entidade =  models.ForeignKey(Entidade, related_name='entidade_conta', on_delete=models.CASCADE)
     tipo_despesa = models.ForeignKey(Tipo_conta, on_delete=models.CASCADE)
     fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
     data_recebimento = models.DateField()
@@ -49,7 +49,7 @@ class Contas(models.Model):
 
 
 class Arrecadacao(models.Model):
-    entidade =  models.ForeignKey(Entidade, on_delete=models.CASCADE)
+    entidade =  models.ForeignKey(Entidade,related_name='entidade_arrecadacao', on_delete=models.CASCADE)
     tipo_arrecadacao = models.ForeignKey(Tipo_arrecadacao, on_delete=models.CASCADE)
     pagador = models.CharField(max_length=75)
     data_recebimento = models.DateField()

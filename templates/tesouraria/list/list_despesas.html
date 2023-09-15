@@ -1,0 +1,119 @@
+
+
+{% extends 'layouts/base-index.html' %}
+{% load static %} 
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0">{{title}}</h6>
+              
+            </div>
+            
+          </div>
+          
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-12 col-md-12">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total de Gastos</h5>
+                      <span class="h2 font-weight-bold mb-0">{{total_despesas}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                        <i class="ni ni-active-40"></i>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+    <br>
+
+    <!-- Page content -->
+    <body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container-fluid">
+      <div class="row">
+        <div class = "col-xl-12 col-md-12">
+          <h3 >Despesas</h3>
+          <div class="row">
+            <div class = "col-xl-12 col-md-12">
+              <a class="btn btn-success" href="#" role="button">Adicionar Despesa</a>
+              <br>
+            </div>
+            
+          </div>
+          <br>
+          <table class="table table-light">
+            <thead class="">
+              <tr>
+                <th scope="col" class="sort" data-sort="name">Fornecedor</th>
+                <th scope="col" class="sort" data-sort="budget">Tipo</th>
+                <th scope="col" class="sort" data-sort="status">Valor</th>
+                <th scope="col">Pago</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for despesa in despesas  %}
+              <tr>
+                <td>
+                  {{despesa.fornecedor}}
+                </td>
+                <td>
+                  {{despesa.tipo_despesa}}
+                </td>
+                <td>
+                  {{despesa.valor}}
+                </td>
+                <td> {% if despesa.pagamento == False  %}
+                  <img src="/static/assets/icons/x.svg">
+                  {% else %}
+                  <img src="/static/assets/icons/check.svg">
+                  {% endif %}
+                  
+
+                </td>
+                <td>
+                  <img src="/static/assets/icons/eye.svg">
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        
+        </div>
+        
+    </div>
+</body>
+      
+  
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+{% endblock javascripts %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .forms import ContaForms, EntradaForms, FornecedorForm
-from .models import Contas, Arrecadacao, Fornecedor
+from ..forms import ContaForms, EntradaForms, FornecedorForm
+from ..models import Contas, Arrecadacao, Fornecedor
 
 def conta_create(request):
     if request.method == "POST":
