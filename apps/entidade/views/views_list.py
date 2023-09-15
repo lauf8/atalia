@@ -98,3 +98,12 @@ def list_patrimonio_especifc(request,pk):
     }
         
     return render(request,'entidade/patrimonio/list_patrimonio.html', context)
+
+def list_members(request):
+    
+    membros = Membro.objects.all()
+    context = {
+        'membros' : membros,
+    }
+        
+    return render(request,'atalia/members.html', context)
