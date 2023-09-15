@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from ..forms import (MarconForm, ClubeForm, DemolayForm, EscudeiroForm, FdjForm, AbelinhaForm, 
                     PatrimonioForm, MemberForm)
 from ..models import Entidade, Membro, Patrimonio
@@ -209,6 +209,7 @@ def patrimonio_create(request):
             patrimonio.quantidade = quantidade
             patrimonio.entidade = entidade
             patrimonio.save()
+            return redirect('list_patrimonio') 
             
     else:
         form = PatrimonioForm()
@@ -237,6 +238,7 @@ def create_member(request):
             membro.celular = celular
             membro.parentesco_maconico = parentesco
             membro.save()
+            return redirect('list_members') 
 
     else:
         form = MemberForm()

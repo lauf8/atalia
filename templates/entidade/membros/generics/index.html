@@ -77,7 +77,7 @@
           <div class="row">
             <div class = "col-xl-12 col-md-12">
               <a class="btn btn-info" href="{% url 'list_despesa_especific' entidade.pk%}" role="button">Ver todas</a>
-              <a class="btn btn-success" href="#" role="button">Adicionar Despesa</a>
+              <a class="btn btn-success" href="{% url 'conta_create'%}" role="button">Adicionar Despesa</a>
               <br>
             </div>
             
@@ -127,7 +127,7 @@
           <div class="row">
             <div class = "col-xl-12 col-md-12">
               <a class="btn btn-info" href="{% url 'list_entrada_especific' entidade.pk%}" role="button">Ver todas</a>
-              <a class="btn btn-success" href="#" role="button">Adicionar Entrada</a>
+              <a class="btn btn-success" href="{% url 'entrada_create'%}" role="button">Adicionar Entrada</a>
               <br>
             </div>
             <br>
@@ -181,7 +181,7 @@
           <div class="row">
             <div class = "col-xl-12 col-md-12">
               <a class="btn btn-info"  href="{% url 'list_members_especific' entidade.pk%}" role="button">Ver todos</a>
-              <a class="btn btn-success" href="#" role="button">Adicionar Membros</a>
+              <a class="btn btn-success" href="{% url 'create_member' %}" role="button">Adicionar Membros</a>
               <br>
               
             </div>
@@ -229,7 +229,7 @@
           <div class="row">
             <div class = "col-xl-12 col-md-12">
               <a class="btn btn-info" href="{% url 'list_patrimonio_especific' entidade.pk %}" role="button">Ver todos</a>
-              <a class="btn btn-success" href="#" role="button">Adicionar Membros</a>
+              <a class="btn btn-success" href="{% url 'patrimonio_create' %}" role="button">Adicionar Patrimonio</a>
               <br>
               
             </div>

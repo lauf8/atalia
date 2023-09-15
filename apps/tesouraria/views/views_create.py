@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from ..forms import ContaForms, EntradaForms, FornecedorForm, TipoEntradaForm, TipoSaidasForm
 from ..models import Contas, Arrecadacao, Fornecedor, Tipo_arrecadacao, Tipo_conta
 
@@ -21,7 +21,9 @@ def conta_create(request):
             conta.valor = valor
             conta.descricao = descricao
             conta.pagamento = pago
-            conta.save()   
+            conta.save()
+            return redirect('list_everthing') 
+   
     else:
         form = ContaForms()
     context = {
@@ -53,6 +55,8 @@ def entrada_create(request):
             entrada.descricao = descricao
             entrada.pagamento = pago
             entrada.save() 
+            return redirect('list_everthing') 
+
     else:
         form = EntradaForms()
     context = {
@@ -77,6 +81,8 @@ def fornecedor_create(request):
             forcenedor.tipo_pix = tipo_pix
             forcenedor.pix = pix
             forcenedor.save()
+            return redirect('list_everthing') 
+
     else:
         form = FornecedorForm()
     context = {
@@ -96,6 +102,8 @@ def tipo_entrada_create(request):
             tipo_entrada = Tipo_arrecadacao()
             tipo_entrada.nome = nome
             tipo_entrada.save()
+            return redirect('list_everthing') 
+
     else:
         form = TipoEntradaForm()
     context = {
@@ -115,6 +123,8 @@ def tipo_saida_create(request):
             tipo_entrada = Tipo_conta()
             tipo_entrada.nome = nome
             tipo_entrada.save()
+            return redirect('list_everthing') 
+
     else:
         form = TipoSaidasForm()
     context = {
