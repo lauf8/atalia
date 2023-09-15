@@ -2,7 +2,7 @@
 
 {% extends 'layouts/base.html' %}
 {% load static %} 
-{% block title %} {{title}} {% endblock title %}
+{% block title %} Cadastrar Membro {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -12,14 +12,9 @@
 {% load bootstrap5 %}
 
 <div>
-  
-
-
   <body class="d-flex justify-content-center align-items-center vh-100">
-    
     <div class="container">
-        <br>
-      <h1 class="text-center">{{title_form}}</h1>
+      <h1 class="text-center">Cadastrar Membro</h1>
       <form method="POST">
         {% csrf_token %}
         {% bootstrap_form form %}

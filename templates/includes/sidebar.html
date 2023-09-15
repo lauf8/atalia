@@ -8,44 +8,44 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item {% if 'index' in segment %} active {% endif %}">
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="{% url 'list_everthing' %}">
               <i class="material-icons">home</i>
               <p>Visão Geral</p>
             </a>
           </li>
           <li class="nav-item {% if 'index' in segment %} active {% endif %}">
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="{% url 'list_entidade_especific' 1 %}">
               <i class="material-icons">architecture</i>
               <p>Maçonaria</p>
             </a>
           </li>
           <li class="nav-item {% if 'index' in segment %} active {% endif %}">
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="{% url 'list_entidade_especific' 2 %}">
               <i class="material-icons">groups</i>
               <p>Clube</p>
             </a>
           </li>
           <li class="nav-item {% if 'index' in segment %} active {% endif %}">
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="{% url 'list_entidade_especific' 3 %}">
               <i class="material-icons">DM</i>
               <p>Capítulo</p>
             </a>
           </li>
           
           <li class="nav-item {% if 'index' in segment %} active {% endif %}">
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="{% url 'list_entidade_especific' 4 %}">
               <i class="material-icons">shields</i>
               <p>Castelo</p>
             </a>
           </li>
           <li class="nav-item {% if 'index' in segment %} active {% endif %}">
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="{% url 'list_entidade_especific' 5 %}">
               <i class="material-icons">FJ</i>
               <p>Bethel</p>
             </a>
           </li>
           <li class="nav-item {% if 'index' in segment %} active {% endif %}">
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="{% url 'list_entidade_especific' 6 %}">
               <i class="material-icons">hive</i>
               <p>Coméia</p>
             </a>
