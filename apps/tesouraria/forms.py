@@ -31,7 +31,6 @@ class FornecedorForm(forms.Form):
     nome = forms.CharField()
     celular = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control',
-        'data-mask': '000-000-000'
     }))
     
     tipo_pix = forms.ChoiceField(widget=forms.Select(attrs={
@@ -64,3 +63,11 @@ class EntradaForms(forms.Form):
     pago = forms.ChoiceField(widget=forms.Select(attrs={
         'class': 'form-control',
     }), choices=CHOICES_SIM_OU_NAO)
+
+
+class TipoEntradaForm(forms.Form):
+    nome = forms.CharField()
+    
+
+class TipoSaidasForm(forms.Form):
+    nome = forms.CharField()

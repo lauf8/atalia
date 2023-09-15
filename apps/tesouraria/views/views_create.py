@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from ..forms import ContaForms, EntradaForms, FornecedorForm
-from ..models import Contas, Arrecadacao, Fornecedor
+from ..forms import ContaForms, EntradaForms, FornecedorForm, TipoEntradaForm, TipoSaidasForm
+from ..models import Contas, Arrecadacao, Fornecedor, Tipo_arrecadacao, Tipo_conta
 
 def conta_create(request):
     if request.method == "POST":
@@ -85,3 +85,42 @@ def fornecedor_create(request):
             "title_form" : 'Cadastrar Fornecedor'
         }
     return render(request, 'tesouraria/form.html', context)
+
+
+def tipo_entrada_create(request):
+    if request.method == "POST":
+        form = TipoEntradaForm(request.POST)
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+    
+            tipo_entrada = Tipo_arrecadacao()
+            tipo_entrada.nome = nome
+            tipo_entrada.save()
+    else:
+        form = TipoEntradaForm()
+    context = {
+            "form": form,
+            "title": 'Tipo entrada',
+            "title_form" : 'Tipo entrada'
+        }
+    return render(request, 'tesouraria/form.html', context)
+
+
+def tipo_saida_create(request):
+    if request.method == "POST":
+        form = TipoSaidasForm(request.POST)
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+    
+            tipo_entrada = Tipo_conta()
+            tipo_entrada.nome = nome
+            tipo_entrada.save()
+    else:
+        form = TipoSaidasForm()
+    context = {
+            "form": form,
+            "title": 'Tipo conta',
+            "title_form" : 'Tipo conta'
+        }
+    return render(request, 'tesouraria/form.html', context)
+

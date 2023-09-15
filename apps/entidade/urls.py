@@ -1,6 +1,6 @@
 from django.urls import path
 from .views.views_create import (create_marcon, clube_fraternidade_create, demolay_create, escudeiro_create,
-                    fdj_create, abelinha_create, patrimonio_create)
+                    fdj_create, abelinha_create, patrimonio_create, create_member)
 from .views.views_list import (list_everthing, list_patrimonio, list_patrimonio_especifc, 
                                list_entidade_especific, list_members, list_members_especific)
 
@@ -10,6 +10,7 @@ urlpatterns = [
     path('<int:pk>',list_entidade_especific, name='list_entidade_especific'),
     path('membros',list_members, name='list_members'),
     path('membros/<int:pk>',list_members_especific, name='list_members_especific'),
+    path('membros/create',create_member, name='create_member'),
     
 
     

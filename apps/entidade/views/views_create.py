@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from ..forms import MarconForm, ClubeForm, DemolayForm, EscudeiroForm, FdjForm, AbelinhaForm, PatrimonioForm
+from ..forms import (MarconForm, ClubeForm, DemolayForm, EscudeiroForm, FdjForm, AbelinhaForm, 
+                    PatrimonioForm, MemberForm)
 from ..models import Entidade, Membro, Patrimonio
 from apps.tesouraria.models import Arrecadacao, Contas
 
@@ -216,3 +217,32 @@ def patrimonio_create(request):
         }
     
     return render(request, 'entidade/patrimonio/form.html', context)
+
+
+def create_member(request):
+    if request.method == "POST":
+        form = MemberForm(request.POST)
+        if form.is_valid():
+            entidade = form.cleaned_data['entidade']
+            nome = form.cleaned_data['nome']
+            data_nascimento = form.cleaned_data['data_nascimento']
+            endereco = form.cleaned_data['endereco']
+            celular = form.cleaned_data['celular']
+            parentesco = form.cleaned_data['parentesco']
+            membro = Membro() 
+            membro.entidade = entidade
+            membro.nome = nome
+            membro.data_nascimento = data_nascimento
+            membro.endereco = endereco
+            membro.celular = celular
+            membro.parentesco_maconico = parentesco
+            membro.save()
+
+    else:
+        form = MemberForm()
+
+    context = {
+        "form": form
+    }
+
+    return render(request, 'entidade/membros/generics/form.html', context)
