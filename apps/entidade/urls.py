@@ -36,7 +36,7 @@ urlpatterns = [
     #patrimonio
     path('patrimonio/create',patrimonio_create, name='patrimonio_create'),
     path('patrimonio',list_patrimonio, name='list_patrimonio'),
-    path('patrimonio/<int:pk>',list_patrimonio_especifc, name='list_patrimonio_especifc'),
+    path('patrimonio/<int:pk>',list_patrimonio_especifc, name='list_patrimonio_especific'),
 
     
     
