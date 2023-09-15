@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .forms import MarconForm, ClubeForm, DemolayForm, EscudeiroForm, FdjForm, AbelinhaForm, PatrimonioForm
-from .models import Entidade, Membro, Patrimonio
+from ..forms import MarconForm, ClubeForm, DemolayForm, EscudeiroForm, FdjForm, AbelinhaForm, PatrimonioForm
+from ..models import Entidade, Membro, Patrimonio
 from apps.tesouraria.models import Arrecadacao, Contas
 
 
@@ -68,38 +68,6 @@ def clube_fraternidade_create(request):
     }
 
     return render(request, 'entidade/membros/clube_da_fraternidade/form.html', context)
-
-def demolay_create(request):
-    if request.method == "POST":
-        form = DemolayForm(request.POST)
-        if form.is_valid():
-            entidade = Entidade.objects.get(pk=3)
-            nome = form.cleaned_data['nome']
-            data_nascimento = form.cleaned_data['data_nascimento']
-            endereco = form.cleaned_data['endereco']
-            celular = form.cleaned_data['celular']
-            parentesco = form.cleaned_data['parentesco']
-            escudeiro = form.cleaned_data['escudeiro']
-            demolay = True
-            membro = Membro() 
-            membro.entidade = entidade
-            membro.nome = nome
-            membro.data_nascimento = data_nascimento
-            membro.endereco = endereco
-            membro.celular = celular
-            membro.parentesco_maconico = parentesco
-            membro.demolay = demolay
-            membro.escudeiro = escudeiro
-            membro.save()
-
-    else:
-        form = DemolayForm()
-
-    context = {
-        "form": form
-    }
-
-    return render(request, 'entidade/membros/demolay/form.html', context)
 
 def demolay_create(request):
     if request.method == "POST":
@@ -248,35 +216,3 @@ def patrimonio_create(request):
         }
     
     return render(request, 'entidade/patrimonio/form.html', context)
-
-
-def list_everthing(request):
-    despesas = Contas.objects.all()
-    entradas = Arrecadacao.objects.all()
-    membros = Membro.objects.all().order_by('-id')[:5][::-1]
-    patrimonios = Patrimonio.objects.all().order_by('-id')[:5][::-1]
-    valor_despesas = []
-    valor_entradas = []
-    
-    for x in despesas:
-        valor_despesas.append(x.valor)
-    
-    for x in entradas:
-        valor_entradas.append(x.valor)
-        
-    #lista as ultimas 5 tanto despesas quanto arrecadção
-    despesas = despesas.order_by('-id')[:5][::-1] 
-    entradas = entradas.order_by('-id')[:5][::-1]
-    total_despesas = sum(valor_despesas)
-    total_entradas = sum(valor_entradas)
-    context = {
-        'despesas' : despesas,
-        'entradas' : entradas,
-        'membros' : membros,
-        'patrimonios' : patrimonios,
-        'total_despesas' : total_despesas,
-        'total_entradas' : total_entradas
-        
-    }
-        
-    return render(request,'atalia/index.html', context)

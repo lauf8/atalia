@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import (create_marcon, clube_fraternidade_create, demolay_create, escudeiro_create,
-                    fdj_create, abelinha_create, patrimonio_create,list_everthing)
+from .views.views_create import (create_marcon, clube_fraternidade_create, demolay_create, escudeiro_create,
+                    fdj_create, abelinha_create, patrimonio_create)
+from .views.views_list import (list_everthing)
+
 urlpatterns = [
     
     path('',list_everthing, name='list_everthing' ),
