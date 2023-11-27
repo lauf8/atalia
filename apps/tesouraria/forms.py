@@ -26,6 +26,7 @@ class ContaForms(forms.Form):
     pago = forms.ChoiceField(widget=forms.Select(attrs={
         'class': 'form-control',
     }), choices=CHOICES_SIM_OU_NAO)
+    comprovante = forms.ImageField()
     
 class FornecedorForm(forms.Form):
     nome = forms.CharField()

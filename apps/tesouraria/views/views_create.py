@@ -4,7 +4,7 @@ from ..models import Contas, Arrecadacao, Fornecedor, Tipo_arrecadacao, Tipo_con
 
 def conta_create(request):
     if request.method == "POST":
-        form = ContaForms(request.POST)
+        form = ContaForms(request.POST, request.FILES)
         if form.is_valid():
             entidade = form.cleaned_data['entidade']
             tipo_despesa = form.cleaned_data['tipo_despesa']
@@ -13,6 +13,7 @@ def conta_create(request):
             valor = form.cleaned_data['valor']
             descricao = form.cleaned_data['descricao']
             pago = form.cleaned_data['pago']
+            comprovante = form.cleaned_data['comprovante']
             conta = Contas()
             conta.entidade = entidade
             conta.tipo_despesa = tipo_despesa
@@ -21,6 +22,7 @@ def conta_create(request):
             conta.valor = valor
             conta.descricao = descricao
             conta.pagamento = pago
+            conta.comprovante = comprovante
             conta.save()
             return redirect('list_everthing') 
    
@@ -45,7 +47,7 @@ def entrada_create(request):
             data_recebimento = form.cleaned_data['data_recebimento']
             valor = form.cleaned_data['valor']
             descricao = form.cleaned_data['descricao']
-            pago = form.cleaned_data['pago']
+            pago = form.cleaned_data['pago']          
             entrada = Arrecadacao()
             entrada.entidade = entidade
             entrada.tipo_arrecadacao = tipo_arrecadacao

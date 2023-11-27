@@ -73,4 +73,18 @@ def list_entrada_especific(request,pk):
     return render(request,'tesouraria/list/list_entradas.html', context)
 
 
+def show_conta(request,pk):
+    conta = get_object_or_404(Contas,pk =pk)
+    context = {
+        'conta' : conta,
+    }
+    return render(request,'tesouraria/show/contas.html', context)
+
+def show_entrada(request,pk):
+    entrada = get_object_or_404(Arrecadacao,pk =pk)
+    context = {
+        'arrecadacao' : entrada,
+    }
+    return render(request,'tesouraria/show/entradas.html', context)
+
 

@@ -1,0 +1,35 @@
+
+
+{% extends 'layouts/base.html' %}
+{% load static %} 
+{% block title %} Cadastrar Abelinha {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+{% load bootstrap5 %}
+
+<div>
+  <body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container">
+       
+      <body>
+         <h1>Detalhes da Arrecadação</h1>
+    
+    <p><strong>Entidade:</strong> {{ arrecadacao.entidade }}</p>
+    <p><strong>Tipo de Arrecadação:</strong> {{ arrecadacao.tipo_arrecadacao }}</p>
+    <p><strong>Pagador:</strong> {{ arrecadacao.pagador }}</p>
+    <p><strong>Data de Recebimento:</strong> {{ arrecadacao.data_recebimento }}</p>
+    <p><strong>Valor:</strong> {{ arrecadacao.valor }}</p>
+    <p><strong>Pagamento:</strong> {% if arrecadacao.pagamento %}Pago{% else %}Não Pago{% endif %}</p>
+    
+    {% if arrecadacao.descricao %}
+        <p><strong>Descrição:</strong> {{ arrecadacao.descricao }}</p>
+    {% endif %}
+  </body>
+</div>
+
+{% endblock content %}
+

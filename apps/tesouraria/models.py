@@ -40,6 +40,7 @@ class Contas(models.Model):
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     pagamento = models.BooleanField(default=False)
     descricao = models.TextField(blank=True, null=True)
+    comprovante = models.ImageField(blank=True)
     
     
     def __str__(self):

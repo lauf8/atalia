@@ -1,0 +1,45 @@
+
+
+{% extends 'layouts/base.html' %}
+{% load static %} 
+{% block title %} Cadastrar Abelinha {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+{% load bootstrap5 %}
+
+<div>
+  <body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container">
+       
+      
+        <h1>Detalhes da Conta</h1>
+        
+        <p><strong>Entidade:</strong> {{ conta.entidade }}</p>
+        <p><strong>Tipo de Despesa:</strong> {{ conta.tipo_despesa }}</p>
+        <p><strong>Fornecedor:</strong> {{ conta.fornecedor }}</p>
+        <p><strong>Data de Recebimento:</strong> {{ conta.data_recebimento }}</p>
+        <p><strong>Valor:</strong> {{ conta.valor }}</p>
+        <p><strong>Pagamento:</strong> {% if conta.pagamento %}Pago{% else %}Não Pago{% endif %}</p>
+        
+        {% if conta.descricao %}
+            <p><strong>Descrição:</strong> {{ conta.descricao }}</p>
+        {% endif %}
+    
+        {% if conta.comprovante %}
+            <p><strong>Comprovante:</strong></p>
+            <img src="{{ conta.comprovante.url }}" alt="Comprovante" style="max-width: 100%; max-height: 400px;">
+            {% endif %}
+      
+    </div>
+    <br>
+
+    
+  </body>
+</div>
+
+{% endblock content %}
+
