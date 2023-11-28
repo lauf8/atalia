@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from apps.entidade.forms import MarconForm, ClubeForm, DemolayForm, EscudeiroForm, FdjForm, AbelinhaForm, PatrimonioForm
 from apps.entidade.models import Entidade, Membro, Patrimonio
 from apps.tesouraria.models import Arrecadacao, Contas
 from django.shortcuts import get_object_or_404
+from ..forms import (ContaConfirmarPagamentoForms)
 
 
 
@@ -74,11 +75,24 @@ def list_entrada_especific(request,pk):
 
 
 def show_conta(request,pk):
+    
     conta = get_object_or_404(Contas,pk =pk)
+    if request.method == "POST":
+        form = ContaConfirmarPagamentoForms(request.POST, request.FILES)
+        if form.is_valid():
+            comprovante = form.cleaned_data['comprovante']
+            conta.comprovante = comprovante
+            conta.save()
+            return redirect('show_conta', conta.pk) 
+   
+    else:
+        form = ContaConfirmarPagamentoForms()
     context = {
-        'conta' : conta,
-    }
+            "form": form,
+            'conta' : conta,
+        }
     return render(request,'tesouraria/show/contas.html', context)
+
 
 def show_entrada(request,pk):
     entrada = get_object_or_404(Arrecadacao,pk =pk)

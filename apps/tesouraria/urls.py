@@ -14,6 +14,7 @@ urlpatterns = [
     path('entrada',list_entradas, name='list_entrada' ),
     path('entrada/<int:pk>',list_entrada_especific, name='list_entrada_especific'),
     path('entrada/<int:pk>/show',show_entrada, name='show_entrada'),
+    
     path('fornecedor/create',fornecedor_create, name='fornecedor_create' ),    
     path('tipo-entrada/create',tipo_entrada_create, name='tipo_entrada_create' ),  
     path('tipo-saida/create',tipo_saida_create, name='tipo_saida_create' ),    
