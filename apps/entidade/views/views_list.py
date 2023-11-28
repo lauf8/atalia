@@ -116,3 +116,17 @@ def list_members_especific(request,pk):
     }
         
     return render(request,'atalia/members.html', context)
+
+def show_members(request,pk):
+    membro = get_object_or_404(Membro,pk=pk)
+    context = {
+        'membro' : membro,
+    }
+    return render(request,'entidade/membros/generics/show.html', context)
+
+def show_members(request,pk):
+    patrimonio = get_object_or_404(Patrimonio,pk=pk)
+    context = {
+        'patrimonio' : patrimonio,
+    }
+    return render(request,'entidade/membros/generics/patrimonio.html', context)

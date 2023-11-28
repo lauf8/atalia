@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+{% load static %} 
+{% block title %} Detalhes do Cadastro {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+{% load bootstrap5 %}
+
+<div class="container">
+  <h1>Detalhes do Cadastro</h1>
+
+  <p><strong>Nome:</strong> {{ patrimonio.nome }}</p>
+  <p><strong>Quantidade:</strong> {{ patrimonio.quantidade }}</p>
+  <p><strong>Entidade:</strong> {{ patrimonio.entidade }}</p>
+  
+</div>
+
+{% endblock content %}
