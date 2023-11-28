@@ -124,7 +124,7 @@ def show_members(request,pk):
     }
     return render(request,'entidade/membros/generics/show.html', context)
 
-def show_members(request,pk):
+def show_patrimonio(request,pk):
     patrimonio = get_object_or_404(Patrimonio,pk=pk)
     context = {
         'patrimonio' : patrimonio,

@@ -58,7 +58,7 @@
           <h3 >Entradas</h3>
           <div class="row">
             <div class = "col-xl-12 col-md-12">
-              <a class="btn btn-success" href="#" role="button">Adicionar Entrada</a>
+              <a class="btn btn-success" href="{% url 'entrada_create'%}" role="button">Adicionar Entrada</a>
               <br>
             </div>
             <br>
@@ -95,8 +95,9 @@
 
                 </td>
                 <td>
-                  
-                  <img src="/static/assets/icons/eye.svg">
+                  <a href="{% url 'show_entrada' entrada.pk%}">
+                    <img src="/static/assets/icons/eye.svg">
+                  </a>
                 </td>
               </tr>
               {% endfor %}

@@ -32,7 +32,7 @@
 
           <div class="row">
             <div class = "col-xl-12 col-md-12">
-              <a class="btn btn-success" href="#" role="button">Adicionar Patrimônio</a>
+              <a class="btn btn-success" href="{% url 'patrimonio_create'%}" role="button">Adicionar Patrimônio</a>
               <br>
             </div>
           </div>
@@ -61,7 +61,9 @@
                       {{patrimonio.entidade}}
                     </td>
                     <td>
-                      <img src="/static/assets/icons/eye.svg">
+                      <a href="{% url 'show_patrimonio' patrimonio.pk %}">
+                        <img src="/static/assets/icons/eye.svg">
+                      </a>
                     </td>
                   </tr>
                   {% endfor %}

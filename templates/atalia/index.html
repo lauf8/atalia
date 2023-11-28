@@ -113,7 +113,7 @@
 
                 </td>
                 <td>
-                  <img src="/static/assets/icons/eye.svg">
+                  <a href="{% url 'show_conta' despesa.pk %}"><img src="/static/assets/icons/eye.svg"></a>
                 </td>
               </tr>
               {% endfor %}
@@ -163,8 +163,9 @@
 
                 </td>
                 <td>
-                  
-                  <img src="/static/assets/icons/eye.svg">
+                  <a href="{% url 'show_entrada' entrada.pk %}">
+                    <img src="/static/assets/icons/eye.svg">
+                  </a>
                 </td>
               </tr>
               {% endfor %}
@@ -210,7 +211,9 @@
                       {{membro.data_nascimento}}
                     </td>
                     <td>
-                      <img src="/static/assets/icons/eye.svg">
+                      <a href="{% url 'show_membro' membro.pk%}">
+                        <img src="/static/assets/icons/eye.svg">
+                      </a>
                     </td>
                   </tr>
                   {% endfor %}
@@ -258,7 +261,9 @@
                       {{patrimonio.entidade}}
                     </td>
                     <td>
-                      <img src="/static/assets/icons/eye.svg">
+                      <a href="{% url 'show_patrimonio' patrimonio.pk %}">
+                        <img src="/static/assets/icons/eye.svg">
+                      </a>
                     </td>
                   </tr>
                   {% endfor %}
