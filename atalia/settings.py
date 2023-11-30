@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.entidade', 
     'apps.tesouraria',
+    'apps.auth2',
     'phonenumber_field',
     'bootstrap5',
     

@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class TesourariaConfig(AppConfig):
+class Auth2Config(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.tesouraria'
-    label = 'tesouraria'
+    name = 'apps.auth2'
+    label = 'auth2'
