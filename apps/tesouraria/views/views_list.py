@@ -4,9 +4,11 @@ from apps.entidade.models import Entidade, Membro, Patrimonio
 from apps.tesouraria.models import Arrecadacao, Contas
 from django.shortcuts import get_object_or_404
 from ..forms import (ContaConfirmarPagamentoForms)
+from django.contrib.auth.decorators import login_required
 
 
 
+@login_required
 def list_despesa(request):
     despesas = Contas.objects.all()
     valor_despesas = []
@@ -24,6 +26,7 @@ def list_despesa(request):
         
     return render(request,'tesouraria/list/list_despesas.html', context)
 
+@login_required
 def list_despesa_especific(request, pk):
     entidade = get_object_or_404(Entidade, pk=pk)
     despesas = Contas.objects.filter(entidade_id = entidade.pk).all()
@@ -44,6 +47,7 @@ def list_despesa_especific(request, pk):
     return render(request,'tesouraria/list/list_despesas.html', context)
 
 
+@login_required
 def list_entradas(request):
     entradas = Arrecadacao.objects.all()
     valor_entradas = []
@@ -58,6 +62,7 @@ def list_entradas(request):
         
     return render(request,'tesouraria/list/list_entradas.html', context)
 
+@login_required
 def list_entrada_especific(request,pk):
     entidade = get_object_or_404(Entidade, pk=pk)
     entradas = Arrecadacao.objects.filter(entidade_id = entidade.pk)
@@ -74,6 +79,7 @@ def list_entrada_especific(request,pk):
     return render(request,'tesouraria/list/list_entradas.html', context)
 
 
+@login_required
 def show_conta(request,pk):
     
     conta = get_object_or_404(Contas,pk =pk)
@@ -94,6 +100,7 @@ def show_conta(request,pk):
     return render(request,'tesouraria/show/contas.html', context)
 
 
+@login_required
 def show_entrada(request,pk):
     entrada = get_object_or_404(Arrecadacao,pk =pk)
     context = {

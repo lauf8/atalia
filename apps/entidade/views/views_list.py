@@ -5,6 +5,7 @@ from apps.tesouraria.models import Arrecadacao, Contas
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
+
 @login_required
 def list_everthing(request):
     despesas = Contas.objects.all()
@@ -38,6 +39,7 @@ def list_everthing(request):
         
     return render(request,'atalia/index.html', context)
 
+@login_required
 def list_entidade_especific(request,pk):
     entidade = get_object_or_404(Entidade, pk=pk)
     despesas = Contas.objects.filter(entidade_id=entidade.pk).all()
@@ -74,6 +76,7 @@ def list_entidade_especific(request,pk):
 
 
 
+@login_required
 def list_patrimonio(request):
     
     patrimonios = Patrimonio.objects.all()
@@ -85,6 +88,7 @@ def list_patrimonio(request):
         
     return render(request,'entidade/patrimonio/list_patrimonio.html', context)
 
+@login_required
 def list_patrimonio_especifc(request,pk):
     patrimonios = Patrimonio.objects.filter(entidade_id=pk)
     entidade = get_object_or_404(Entidade, pk=pk)
@@ -97,6 +101,7 @@ def list_patrimonio_especifc(request,pk):
         
     return render(request,'entidade/patrimonio/list_patrimonio.html', context)
 
+@login_required
 def list_members(request):
     
     membros = Membro.objects.all()
@@ -106,6 +111,7 @@ def list_members(request):
         
     return render(request,'atalia/members.html', context)
 
+@login_required
 def list_members_especific(request,pk):
     entidade = get_object_or_404(Entidade, pk=pk)
     membros = Membro.objects.filter(entidade_id=entidade.pk)
@@ -115,6 +121,7 @@ def list_members_especific(request,pk):
         
     return render(request,'atalia/members.html', context)
 
+@login_required
 def show_members(request,pk):
     membro = get_object_or_404(Membro,pk=pk)
     context = {
@@ -122,6 +129,7 @@ def show_members(request,pk):
     }
     return render(request,'entidade/membros/generics/show.html', context)
 
+@login_required
 def show_patrimonio(request,pk):
     patrimonio = get_object_or_404(Patrimonio,pk=pk)
     context = {

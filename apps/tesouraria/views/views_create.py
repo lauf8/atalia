@@ -1,7 +1,10 @@
 from django.shortcuts import redirect, render
 from ..forms import ContaForms, EntradaForms, FornecedorForm, TipoEntradaForm, TipoSaidasForm
 from ..models import Contas, Arrecadacao, Fornecedor, Tipo_arrecadacao, Tipo_conta
+from django.contrib.auth.decorators import login_required
 
+
+@login_required
 def conta_create(request):
     if request.method == "POST":
         form = ContaForms(request.POST, request.FILES)
@@ -37,6 +40,8 @@ def conta_create(request):
     return render(request, 'tesouraria/form.html', context)
 
 
+
+@login_required
 def entrada_create(request):
     if request.method == "POST":
         form = EntradaForms(request.POST)
@@ -69,6 +74,8 @@ def entrada_create(request):
     return render(request, 'tesouraria/form.html', context)
 
 
+
+@login_required
 def fornecedor_create(request):
     if request.method == "POST":
         form = FornecedorForm(request.POST)
@@ -95,6 +102,8 @@ def fornecedor_create(request):
     return render(request, 'tesouraria/form.html', context)
 
 
+
+@login_required
 def tipo_entrada_create(request):
     if request.method == "POST":
         form = TipoEntradaForm(request.POST)
@@ -116,6 +125,8 @@ def tipo_entrada_create(request):
     return render(request, 'tesouraria/form.html', context)
 
 
+
+@login_required
 def tipo_saida_create(request):
     if request.method == "POST":
         form = TipoSaidasForm(request.POST)
