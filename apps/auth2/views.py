@@ -1,18 +1,15 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
-
-# Create your views here.
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, SignUpForm
+from django.contrib.auth.decorators import login_required
+
 
 
 def login_view(request):
     form = LoginForm(request.POST or None)
     msg = None
-    if request.user:
+    request.user
+    if request.user.is_authenticated:
         return redirect("list_everthing")
     if request.method == "POST":
 

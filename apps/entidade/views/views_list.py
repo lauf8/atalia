@@ -3,9 +3,9 @@ from ..forms import MarconForm, ClubeForm, DemolayForm, EscudeiroForm, FdjForm, 
 from ..models import Entidade, Membro, Patrimonio
 from apps.tesouraria.models import Arrecadacao, Contas
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
-
-
+@login_required
 def list_everthing(request):
     despesas = Contas.objects.all()
     entradas = Arrecadacao.objects.all()
@@ -37,7 +37,6 @@ def list_everthing(request):
     }
         
     return render(request,'atalia/index.html', context)
-
 
 def list_entidade_especific(request,pk):
     entidade = get_object_or_404(Entidade, pk=pk)
@@ -72,7 +71,6 @@ def list_entidade_especific(request,pk):
     }
         
     return render(request,'entidade/membros/generics/index.html', context)
-
 
 
 

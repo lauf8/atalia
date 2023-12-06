@@ -3,8 +3,9 @@ from ..forms import (MarconForm, ClubeForm, DemolayForm, EscudeiroForm, FdjForm,
                     PatrimonioForm, MemberForm)
 from ..models import Entidade, Membro, Patrimonio
 from apps.tesouraria.models import Arrecadacao, Contas
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(redirect_field_name='login')
 def create_marcon(request):
     if request.method == "POST":
         form = MarconForm(request.POST)
@@ -37,7 +38,7 @@ def create_marcon(request):
 
     return render(request, 'entidade/membros/marcon/form.html', context)
 
-
+@login_required(redirect_field_name='login')
 def clube_fraternidade_create(request):
     if request.method == "POST":
         form = ClubeForm(request.POST)
@@ -70,6 +71,7 @@ def clube_fraternidade_create(request):
 
     return render(request, 'entidade/membros/clube_da_fraternidade/form.html', context)
 
+@login_required(redirect_field_name='login')
 def demolay_create(request):
     if request.method == "POST":
         form = DemolayForm(request.POST)
@@ -101,7 +103,7 @@ def demolay_create(request):
     }
 
     return render(request, 'entidade/membros/demolay/form.html', context)
-
+@login_required(redirect_field_name='login')
 def escudeiro_create(request):
     if request.method == "POST":
         form = EscudeiroForm(request.POST)
@@ -134,6 +136,7 @@ def escudeiro_create(request):
     return render(request, 'entidade/membros/escudeiro/form.html', context)
 
 
+@login_required(redirect_field_name='login')
 def fdj_create(request):
     if request.method == "POST":
         form = FdjForm(request.POST)
@@ -166,6 +169,8 @@ def fdj_create(request):
 
     return render(request, 'entidade/membros/fdj/form.html', context)
 
+
+@login_required(redirect_field_name='login')
 def abelinha_create(request):
     if request.method == "POST":
         form = AbelinhaForm(request.POST)
@@ -196,7 +201,7 @@ def abelinha_create(request):
 
     return render(request, 'entidade/membros/comeia/form.html', context)
 
-
+@login_required(redirect_field_name='login')
 def patrimonio_create(request):
     if request.method == "POST":
         form = PatrimonioForm(request.POST)
@@ -219,7 +224,7 @@ def patrimonio_create(request):
     
     return render(request, 'entidade/patrimonio/form.html', context)
 
-
+@login_required(redirect_field_name='login')
 def create_member(request):
     if request.method == "POST":
         form = MemberForm(request.POST)
