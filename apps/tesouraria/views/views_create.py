@@ -26,6 +26,7 @@ def conta_create(request):
             conta.descricao = descricao
             conta.pagamento = pago
             conta.comprovante = comprovante
+            conta.user = request.user
             conta.save()
             return redirect('list_everthing') 
    
@@ -61,6 +62,7 @@ def entrada_create(request):
             entrada.valor = valor
             entrada.descricao = descricao
             entrada.pagamento = pago
+            entrada.user = request.user
             entrada.save() 
             return redirect('list_everthing') 
 
@@ -89,6 +91,7 @@ def fornecedor_create(request):
             forcenedor.celular = celular
             forcenedor.tipo_pix = tipo_pix
             forcenedor.pix = pix
+            forcenedor.user = request.user
             forcenedor.save()
             return redirect('list_everthing') 
 
@@ -109,7 +112,6 @@ def tipo_entrada_create(request):
         form = TipoEntradaForm(request.POST)
         if form.is_valid():
             nome = form.cleaned_data['nome']
-    
             tipo_entrada = Tipo_arrecadacao()
             tipo_entrada.nome = nome
             tipo_entrada.save()

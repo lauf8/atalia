@@ -27,6 +27,7 @@ def create_marcon(request):
             membro.parentesco_maconico = parentesco
             membro.demolay = demolay
             membro.marcon = marcon
+            membro.user = request.user
             membro.save()
 
     else:
@@ -60,6 +61,7 @@ def clube_fraternidade_create(request):
             membro.parentesco_maconico = parentesco
             membro.fdj = filha_de_jo
             membro.clube_da_fraternidade = clube_da_fraternidade
+            membro.user = request.user
             membro.save()
 
     else:
@@ -93,6 +95,7 @@ def demolay_create(request):
             membro.parentesco_maconico = parentesco
             membro.demolay = demolay
             membro.escudeiro = escudeiro
+            membro.user = request.user
             membro.save()
 
     else:
@@ -124,6 +127,7 @@ def escudeiro_create(request):
             membro.celular = celular
             membro.parentesco_maconico = parentesco
             membro.escudeiro = escudeiro
+            membro.user = request.user
             membro.save()
 
     else:
@@ -158,6 +162,7 @@ def fdj_create(request):
             membro.parentesco_maconico = parentesco
             membro.fdj = fdj
             membro.abelhinha = abelinha
+            membro.user = request.user
             membro.save()
 
     else:
@@ -189,7 +194,8 @@ def abelinha_create(request):
             membro.endereco = endereco
             membro.celular = celular
             membro.parentesco_maconico = parentesco
-            membro.abelhinha = abelhinha
+            membro.abelhinha = True
+            membro.user = request.user
             membro.save()
 
     else:
@@ -243,6 +249,7 @@ def create_member(request):
             membro.celular = celular
             membro.parentesco_maconico = parentesco
             membro.save()
+            membro.user = request.user
             return redirect('list_members') 
 
     else:

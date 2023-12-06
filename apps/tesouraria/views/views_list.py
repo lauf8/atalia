@@ -5,12 +5,12 @@ from apps.tesouraria.models import Arrecadacao, Contas
 from django.shortcuts import get_object_or_404
 from ..forms import (ContaConfirmarPagamentoForms)
 from django.contrib.auth.decorators import login_required
-
+from django.http import Http404
 
 
 @login_required
 def list_despesa(request):
-    despesas = Contas.objects.all()
+    despesas = Contas.objects.filter(user=request.user).all()
     valor_despesas = []
     
     for x in despesas:
@@ -29,7 +29,7 @@ def list_despesa(request):
 @login_required
 def list_despesa_especific(request, pk):
     entidade = get_object_or_404(Entidade, pk=pk)
-    despesas = Contas.objects.filter(entidade_id = entidade.pk).all()
+    despesas = Contas.objects.filter(entidade_id = entidade.pk,user = request.user).all()
     valor_despesas = []
     
     for x in despesas:
@@ -49,7 +49,7 @@ def list_despesa_especific(request, pk):
 
 @login_required
 def list_entradas(request):
-    entradas = Arrecadacao.objects.all()
+    entradas = Arrecadacao.objects.filter(user=request.user).all()
     valor_entradas = []
     for x in entradas:
         valor_entradas.append(x.valor)
@@ -65,7 +65,7 @@ def list_entradas(request):
 @login_required
 def list_entrada_especific(request,pk):
     entidade = get_object_or_404(Entidade, pk=pk)
-    entradas = Arrecadacao.objects.filter(entidade_id = entidade.pk)
+    entradas = Arrecadacao.objects.filter(entidade_id = entidade.pk,user = request.user).all()
     valor_entradas = []
     for x in entradas:
         valor_entradas.append(x.valor)
@@ -83,29 +83,32 @@ def list_entrada_especific(request,pk):
 def show_conta(request,pk):
     
     conta = get_object_or_404(Contas,pk =pk)
-    if request.method == "POST":
-        form = ContaConfirmarPagamentoForms(request.POST, request.FILES)
-        if form.is_valid():
-            comprovante = form.cleaned_data['comprovante']
-            conta.comprovante = comprovante
-            conta.save()
-            return redirect('show_conta', conta.pk) 
-   
-    else:
-        form = ContaConfirmarPagamentoForms()
-    context = {
-            "form": form,
-            'conta' : conta,
-        }
-    return render(request,'tesouraria/show/contas.html', context)
+    if conta.user == request.user:
+        if request.method == "POST":
+            form = ContaConfirmarPagamentoForms(request.POST, request.FILES)
+            if form.is_valid():
+                comprovante = form.cleaned_data['comprovante']
+                conta.comprovante = comprovante
+                conta.save()
+                return redirect('show_conta', conta.pk) 
+    
+        else:
+            form = ContaConfirmarPagamentoForms()
+        context = {
+                "form": form,
+                'conta' : conta,
+            }
+        return render(request,'tesouraria/show/contas.html', context)
+    raise Http404("A página que você está procurando não foi encontrada.")
 
 
 @login_required
 def show_entrada(request,pk):
     entrada = get_object_or_404(Arrecadacao,pk =pk)
-    context = {
-        'arrecadacao' : entrada,
-    }
-    return render(request,'tesouraria/show/entradas.html', context)
-
+    if entrada.user == request.user:
+        context = {
+            'arrecadacao' : entrada,
+        }
+        return render(request,'tesouraria/show/entradas.html', context)
+    raise Http404("A página que você está procurando não foi encontrada.")
 

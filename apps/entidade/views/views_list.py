@@ -4,14 +4,15 @@ from ..models import Entidade, Membro, Patrimonio
 from apps.tesouraria.models import Arrecadacao, Contas
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 
 @login_required
 def list_everthing(request):
-    despesas = Contas.objects.all()
-    entradas = Arrecadacao.objects.all()
-    membros = Membro.objects.all().order_by('-id')[:5][::-1]
-    patrimonios = Patrimonio.objects.all().order_by('-id')[:5][::-1]
+    despesas = Contas.objects.filter(user=request.user).all()
+    entradas = Arrecadacao.objects.filter(user=request.user).all()
+    membros = Membro.objects.filter(user=request.user).all().order_by('-id')[:5][::-1]
+    patrimonios = Patrimonio.objects.filter(user=request.user).all().order_by('-id')[:5][::-1]
     valor_despesas = []
     valor_entradas = []
     
@@ -42,10 +43,10 @@ def list_everthing(request):
 @login_required
 def list_entidade_especific(request,pk):
     entidade = get_object_or_404(Entidade, pk=pk)
-    despesas = Contas.objects.filter(entidade_id=entidade.pk).all()
-    entradas = Arrecadacao.objects.filter(entidade_id=entidade.pk).all()
-    membros = Membro.objects.filter(entidade_id=entidade.pk).all().order_by('-id')[:5][::-1]
-    patrimonios = Patrimonio.objects.filter(entidade_id=entidade.pk).all().order_by('-id')[:5][::-1]
+    despesas = Contas.objects.filter(entidade_id=entidade.pk,user = request.user).all()
+    entradas = Arrecadacao.objects.filter(entidade_id=entidade.pk,user = request.user).all()
+    membros = Membro.objects.filter(entidade_id=entidade.pk,user = request.user).all().order_by('-id')[:5][::-1]
+    patrimonios = Patrimonio.objects.filter(entidade_id=entidade.pk,user = request.user).all().order_by('-id')[:5][::-1]
     valor_despesas = []
     valor_entradas = []
     
@@ -79,7 +80,7 @@ def list_entidade_especific(request,pk):
 @login_required
 def list_patrimonio(request):
     
-    patrimonios = Patrimonio.objects.all()
+    patrimonios = Patrimonio.objects.filter(user=request.user).all()
     context = {
         'patrimonios' : patrimonios,
         'title' : 'Patrimônios',
@@ -90,7 +91,7 @@ def list_patrimonio(request):
 
 @login_required
 def list_patrimonio_especifc(request,pk):
-    patrimonios = Patrimonio.objects.filter(entidade_id=pk)
+    patrimonios = Patrimonio.objects.filter(entidade_id=pk,user = request.user).all()
     entidade = get_object_or_404(Entidade, pk=pk)
     title = "Patrimonios " +  entidade.nome 
     context = {
@@ -114,7 +115,7 @@ def list_members(request):
 @login_required
 def list_members_especific(request,pk):
     entidade = get_object_or_404(Entidade, pk=pk)
-    membros = Membro.objects.filter(entidade_id=entidade.pk)
+    membros = Membro.objects.filter(entidade_id=entidade.pk,user=request.user).all()
     context = {
         'membros' : membros,
     }
@@ -124,15 +125,18 @@ def list_members_especific(request,pk):
 @login_required
 def show_members(request,pk):
     membro = get_object_or_404(Membro,pk=pk)
-    context = {
-        'membro' : membro,
-    }
-    return render(request,'entidade/membros/generics/show.html', context)
-
+    if membro.user == request.user:
+        context = {
+            'membro' : membro,
+        }
+        return render(request,'entidade/membros/generics/show.html', context)
+    raise Http404("A página que você está procurando não foi encontrada.")
 @login_required
 def show_patrimonio(request,pk):
     patrimonio = get_object_or_404(Patrimonio,pk=pk)
-    context = {
-        'patrimonio' : patrimonio,
-    }
-    return render(request,'entidade/membros/generics/patrimonio.html', context)
+    if patrimonio.user == request.user:
+        context = {
+            'patrimonio' : patrimonio,
+        }
+        return render(request,'entidade/membros/generics/patrimonio.html', context)
+    raise Http404("A página que você está procurando não foi encontrada.")
