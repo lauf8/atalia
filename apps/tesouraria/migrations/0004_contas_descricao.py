@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
         Tipo_arrecadacao.objects.create(nome='Arrecadação de Fundos')
         Tipo_arrecadacao.objects.create(nome='Tronco da Solidaredade')
         Tipo_arrecadacao.objects.create(nome='Doação')
+        Tipo_arrecadacao.objects.create(nome='Outros')
         
         Tipo_conta.objects.create(nome = 'Aluguel')
         Tipo_conta.objects.create(nome = 'Conta de Água')
@@ -19,6 +20,12 @@ class Migration(migrations.Migration):
         Tipo_conta.objects.create(nome = 'Supermercado')
         Tipo_conta.objects.create(nome = 'Limpeza')
         Tipo_conta.objects.create(nome = 'Manutenção')
+        Tipo_conta.objects.create(nome = 'Transporte')
+        Tipo_conta.objects.create(nome = 'Combustível')
+        Tipo_conta.objects.create(nome = 'Doação')
+        Tipo_conta.objects.create(nome = 'Confraternização')
+
+        Tipo_conta.objects.create(nome = 'Outros')
 
         
 

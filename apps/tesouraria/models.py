@@ -1,5 +1,6 @@
 from django.db import models
 from apps.entidade.models import Entidade
+from django.contrib.auth.models import User
 
 CHOICES_PIX = [
     ('Sem', 'Sem Pix'),
@@ -13,6 +14,7 @@ CHOICES_PIX = [
 class Fornecedor(models.Model):
     nome = models.CharField(max_length=75, unique=True)
     celular = models.CharField(max_length=15)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
    
     tipo_pix = models.CharField(max_length=8, choices=CHOICES_PIX,blank=True, null=True)
     pix = models.CharField(max_length=40, blank=True, null=True)
@@ -41,7 +43,7 @@ class Contas(models.Model):
     pagamento = models.BooleanField(default=False)
     descricao = models.TextField(blank=True, null=True)
     comprovante = models.ImageField(blank=True)
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def __str__(self):
         despesa = self.tipo_despesa.nome + ' ' +  str(self.valor) + 'R$'
@@ -57,6 +59,7 @@ class Arrecadacao(models.Model):
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     descricao = models.TextField(blank=True, null=True)
     pagamento = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     
     def __str__(self):
