@@ -48,8 +48,8 @@ def create_member(request):
             membro.endereco = endereco
             membro.celular = celular
             membro.parentesco_maconico = parentesco
-            membro.save()
             membro.user = request.user
+            membro.save()
             return redirect('list_members') 
 
     else:
