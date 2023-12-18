@@ -219,6 +219,7 @@ def patrimonio_create(request):
             patrimonio.nome = nome
             patrimonio.quantidade = quantidade
             patrimonio.entidade = entidade
+            patrimonio.user = request.user
             patrimonio.save()
             return redirect('list_patrimonio') 
             
