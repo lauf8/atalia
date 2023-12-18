@@ -1,5 +1,6 @@
-from .models import CHOICES_PARENTESCO, Entidade
+from .models import  Entidade, Membro, Percapta
 from django import forms
+from django_select2.forms import ModelSelect2Widget
 
 
 CHOICES_SIM_OU_NAO = [
@@ -9,9 +10,8 @@ CHOICES_SIM_OU_NAO = [
 ]
 
 class MemberForm(forms.Form):
-    entidade = forms.ModelChoiceField(widget=forms.Select(attrs={
-        'class': 'form-control',
-    }),queryset=Entidade.objects.all())
+
+
     nome = forms.CharField()
     data_nascimento = forms.DateField(widget = forms.widgets.DateInput(
             attrs={
@@ -20,17 +20,18 @@ class MemberForm(forms.Form):
                 }
             )
     )
-    endereco = forms.CharField()
+    endereco = forms.CharField()    
+    cpf = forms.CharField(max_length=14)   
     celular = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control',
     }))
-    parentesco = forms.ChoiceField(widget=forms.Select(attrs={
-        'class': 'form-control',
-    }), choices=CHOICES_PARENTESCO)
+
 
 
     
 class PatrimonioForm(forms.Form):
+
+
     nome = forms.CharField()
     quantidade = forms.IntegerField()
     entidade = forms.ModelChoiceField(widget=forms.Select(attrs={
@@ -38,3 +39,37 @@ class PatrimonioForm(forms.Form):
     }),queryset=Entidade.objects.all())
     
 
+
+class PercaptaForm(forms.Form):
+
+
+    nome = forms.CharField()
+    captacao = forms.DecimalField()
+    cmsb = forms.DecimalField()
+    cmi = forms.DecimalField()
+    fdj_gleb = forms.DecimalField()
+    dm_gleb = forms.DecimalField()
+    reforma = forms.DecimalField()
+    dm_atalaia = forms.DecimalField()
+    fdj_atalia = forms.DecimalField()
+
+
+class MensalidadeForm(forms.Form):
+    membro = forms.ModelChoiceField(
+        queryset=Membro.objects.all(),
+        widget=ModelSelect2Widget(
+            model=Membro,
+            search_fields=['nome__icontains'],
+            attrs={'class': 'form-control select2', 'style': 'width: 100%;'},
+        )
+    )
+    percapta = forms.ModelChoiceField(
+        queryset=Percapta.objects.all(),
+        widget=ModelSelect2Widget(
+            model=Percapta,
+            search_fields=['nome__icontains'],
+            attrs={'class': 'form-control select2', 'style': 'width: 100%;'},
+        )
+    )
+    comprovante = forms.ImageField(required=False)
+    valor = forms.DecimalField()

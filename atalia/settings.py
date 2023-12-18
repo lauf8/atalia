@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'apps.auth2',
     'phonenumber_field',
     'bootstrap5',
+    'cpf_field',
+    'django_select2'
     
 ]
 
@@ -62,7 +64,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'atalia.wsgi.application'
 
+CACHES = {
+     'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+   ,
+    "select2": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/2",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
 
+# Tell select2 which cache configuration to use:
+SELECT2_CACHE_BACKEND = "select2"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 

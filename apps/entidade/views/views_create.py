@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from ..forms import (PatrimonioForm, MemberForm)
+from ..forms import (PatrimonioForm, MemberForm,MensalidadeForm)
 from ..models import Entidade, Membro, Patrimonio
 from apps.tesouraria.models import Arrecadacao, Contas
 from django.contrib.auth.decorators import login_required
@@ -35,19 +35,17 @@ def create_member(request):
     if request.method == "POST":
         form = MemberForm(request.POST)
         if form.is_valid():
-            entidade = form.cleaned_data['entidade']
             nome = form.cleaned_data['nome']
+            cpf = form.cleaned_data['cpf']
             data_nascimento = form.cleaned_data['data_nascimento']
             endereco = form.cleaned_data['endereco']
             celular = form.cleaned_data['celular']
-            parentesco = form.cleaned_data['parentesco']
             membro = Membro() 
-            membro.entidade = entidade
             membro.nome = nome
             membro.data_nascimento = data_nascimento
             membro.endereco = endereco
             membro.celular = celular
-            membro.parentesco_maconico = parentesco
+            membro.cpf = cpf
             membro.user = request.user
             membro.save()
             return redirect('list_members') 
@@ -60,3 +58,22 @@ def create_member(request):
     }
 
     return render(request, 'entidade/membros/generics/form.html', context)
+
+
+def create_mensalidade(request):
+    if request.method == "POST":
+        form = MensalidadeForm(request.POST)
+        if form.is_valid():
+            return redirect('list_members') 
+
+    else:
+        form = MensalidadeForm()
+
+    context = {
+        "form": form
+    }
+
+    return render(request, 'entidade/membros/generics/form.html', context)
+
+
+
