@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from ..forms import MarconForm, ClubeForm, DemolayForm, EscudeiroForm, FdjForm, AbelinhaForm, PatrimonioForm
 from ..models import Entidade, Membro, Patrimonio
 from apps.tesouraria.models import Arrecadacao, Contas
 from django.shortcuts import get_object_or_404
