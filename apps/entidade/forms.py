@@ -9,6 +9,7 @@ CHOICES_SIM_OU_NAO = [
    
 ]
 
+
 class MemberForm(forms.Form):
 
 
@@ -55,6 +56,8 @@ class PercaptaForm(forms.Form):
 
 
 class MensalidadeForm(forms.Form):
+
+
     membro = forms.ModelChoiceField(
         queryset=Membro.objects.all(),
         widget=ModelSelect2Widget(
@@ -63,13 +66,15 @@ class MensalidadeForm(forms.Form):
             attrs={'class': 'form-control select2', 'style': 'width: 100%;'},
         )
     )
-    percapta = forms.ModelChoiceField(
-        queryset=Percapta.objects.all(),
-        widget=ModelSelect2Widget(
-            model=Percapta,
-            search_fields=['nome__icontains'],
-            attrs={'class': 'form-control select2', 'style': 'width: 100%;'},
-        )
-    )
+    percapta = forms.ModelChoiceField(widget=forms.Select(attrs={
+        'class': 'form-control',
+    }),queryset=Percapta.objects.all())
     comprovante = forms.ImageField(required=False)
     valor = forms.DecimalField()
+    data = forms.DateField(widget = forms.widgets.DateInput(
+            attrs={
+                'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)',
+                'class': 'form-control'
+                }
+            )
+    )

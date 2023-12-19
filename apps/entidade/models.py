@@ -53,10 +53,15 @@ class Percapta(models.Model):
     fdj_atalia = models.DecimalField(max_digits=10, decimal_places=2)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.nome
+
 class Mensalidade(models.Model):
 
 
+    membro = models.ForeignKey(Membro, on_delete=models.CASCADE)
     percapita = models.ForeignKey(Percapta, on_delete=models.CASCADE)
     data_pagamento = models.DateField()
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     comprovante = models.ImageField(blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

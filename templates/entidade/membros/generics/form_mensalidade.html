@@ -2,10 +2,12 @@
 
 {% extends 'layouts/base.html' %}
 {% load static %} 
-{% block title %} Cadastrar Membro {% endblock title %}
+{% block title %} Cadastrar Mensalidade {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+{{ form.media.css }}
+{% endblock stylesheets %}
 
 {% block content %}
 
@@ -14,7 +16,7 @@
 <div>
   <body class="d-flex justify-content-center align-items-center vh-100">
     <div class="container">
-      <h1 class="text-center">Cadastrar Membro</h1>
+      <h1 class="text-center">Mensalidade</h1>
       <form method="POST">
         {% csrf_token %}
         {% bootstrap_form form %}
@@ -22,12 +24,15 @@
           <input type="submit" class="btn btn-primary" value="Enviar" />
         </div>
       </form>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      {{ form.media.js }}
     </div>
   </body>
 </div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 {% endblock content %}
+
+
 
