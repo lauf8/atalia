@@ -1,9 +1,13 @@
+import datetime
 from django.shortcuts import redirect, render
 from ..forms import (PatrimonioForm, MemberForm,MensalidadeForm, PercaptaForm)
 from ..models import Entidade, Membro, Patrimonio, Percapta, Mensalidade
-from apps.tesouraria.models import Arrecadacao, Contas
+from apps.tesouraria.models import Arrecadacao, Contas, Tipo_arrecadacao, Tipo_conta
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
+import datetime
+#from helps.idade import idade_do_usuario
 
 
 @login_required(redirect_field_name='login')
@@ -48,6 +52,8 @@ def create_member(request):
             membro.cpf = cpf
             membro.user = request.user
             membro.save()
+            
+
             return redirect('list_members') 
 
     else:
@@ -109,17 +115,88 @@ def create_mensalidade(request):
             comprovante = form.cleaned_data['comprovante']
             valor = form.cleaned_data['valor']
             data = form.cleaned_data['data']
-
+            
             mensalidade = Mensalidade()
             mensalidade.membro = membro  
-            mensalidade.percapta = percapta  
+            mensalidade.percapita = percapta  
             mensalidade.comprovante = comprovante  
             mensalidade.valor = valor 
-            mensalidade.data = data  
+            mensalidade.data_pagamento = data  
+            mensalidade.user = request.user
+
             mensalidade.save()
-            #if mensalidade.save():
+            print('Entrou')
+            # idade = idade_do_usuario(mensalidade.membro.data_nascimento)
+            # if >
+            #despesa gleb
+            conta_gleb = Contas()
+            conta_gleb.valor = (mensalidade.percapita.cmi + mensalidade.percapita.cmsb
+                                + mensalidade.percapita.captacao + mensalidade.percapita.fdj_gleb +
+                                mensalidade.percapita.dm_gleb)
             
-            
+            conta_gleb.entidade = get_object_or_404(Entidade,pk=1)
+            conta_gleb.tipo_despesa = get_object_or_404(Tipo_conta,pk=1)
+            conta_gleb.data_recebimento = datetime.date.today()
+            conta_gleb.pagamento = True
+            conta_gleb.descricao = 'Mensalidade'
+            conta_gleb.user = mensalidade.user
+            conta_gleb.save()
+
+           
+
+
+            conta_dm = Contas()
+            conta_dm.valor = mensalidade.percapita.dm_atalaia
+            conta_dm.entidade = get_object_or_404(Entidade,pk=1)
+            conta_dm.tipo_despesa = get_object_or_404(Tipo_conta,pk=2)
+            conta_dm.data_recebimento = datetime.date.today()
+            conta_dm.pagamento = True
+            conta_dm.descricao = 'Mensalidade DeMolay'
+            conta_dm.user = mensalidade.user
+            conta_dm.save()
+
+            arrecadao_dm = Arrecadacao()
+            arrecadao_dm.data_recebimento = datetime.date.today()
+            arrecadao_dm.valor = conta_dm.valor
+            arrecadao_dm.pagador = mensalidade.membro.nome
+            arrecadao_dm.entidade = get_object_or_404(Entidade,pk=3)
+            arrecadao_dm.descricao = 'Mensalidade'
+            arrecadao_dm.pagamento = True
+            arrecadao_dm.user = request.user
+            arrecadao_dm.save()
+
+
+
+            conta_fdj = Contas()
+            conta_fdj.valor = mensalidade.percapita.fdj_atalia
+            conta_fdj.entidade = get_object_or_404(Entidade,pk=1)
+            conta_fdj.tipo_despesa = get_object_or_404(Tipo_conta,pk=3)
+            conta_fdj.data_recebimento = datetime.date.today()
+            conta_fdj.pagamento = True
+            conta_fdj.descricao = 'Mensalidade FDJ'
+            conta_fdj.user = mensalidade.user
+            conta_fdj.save()
+
+            arrecadao_fdj = Arrecadacao()
+            arrecadao_fdj.data_recebimento = datetime.date.today()
+            arrecadao_fdj.valor = conta_fdj.valor
+            arrecadao_fdj.pagador = mensalidade.membro.nome
+            arrecadao_fdj.entidade = get_object_or_404(Entidade,pk=5)
+            arrecadao_fdj.descricao = 'Mensalidade'
+            arrecadao_fdj.pagamento = True
+            arrecadao_fdj.user = request.user
+            arrecadao_fdj.save()
+
+            arrecadao_loja = Arrecadacao()
+            arrecadao_loja.data_recebimento = datetime.date.today()
+            arrecadao_loja.valor = mensalidade.valor - (conta_gleb.valor +  arrecadao_fdj.valor + arrecadao_dm.valor)
+            arrecadao_loja.pagador = mensalidade.membro.nome
+            arrecadao_loja.entidade = get_object_or_404(Entidade,pk=1)
+            arrecadao_loja.descricao = 'Mensalidade'
+            arrecadao_loja.pagamento = True
+            arrecadao_loja.user = request.user
+            arrecadao_loja.save()
+
             return redirect('list_members') 
 
     else:

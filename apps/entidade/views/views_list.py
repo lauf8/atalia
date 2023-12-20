@@ -42,13 +42,15 @@ def list_everthing(request):
 @login_required
 def list_entidade_especific(request,pk):
     entidade = get_object_or_404(Entidade, pk=pk)
-    despesas = Contas.objects.filter(entidade_id=entidade.pk,user = request.user).all()
-    entradas = Arrecadacao.objects.filter(entidade_id=entidade.pk,user = request.user).all()
-    membros = Membro.objects.filter(entidade_id=entidade.pk,user = request.user).all().order_by('-id')[:5][::-1]
-    patrimonios = Patrimonio.objects.filter(entidade_id=entidade.pk,user = request.user).all().order_by('-id')[:5][::-1]
+    
+    despesas = Contas.objects.filter(entidade=entidade,user = request.user).all()
+    entradas = Arrecadacao.objects.filter(entidade=entidade,user = request.user).all()
+    membros = Membro.objects.filter(user = request.user).all().order_by('-id')[:5][::-1]
+    patrimonios = Patrimonio.objects.filter(entidade=entidade,user = request.user).all().order_by('-id')[:5][::-1]
     valor_despesas = []
     valor_entradas = []
-    
+    a = despesas
+    print(entidade.pk)
     for x in despesas:
         valor_despesas.append(x.valor)
     

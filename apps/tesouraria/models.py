@@ -36,8 +36,8 @@ class Tipo_arrecadacao(models.Model):
 
 class Contas(models.Model):
     entidade =  models.ForeignKey(Entidade, related_name='entidade_conta', on_delete=models.CASCADE)
-    tipo_despesa = models.ForeignKey(Tipo_conta, on_delete=models.CASCADE)
-    fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
+    tipo_despesa = models.ForeignKey(Tipo_conta, on_delete=models.CASCADE,blank=True, null=True)
+    fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE, blank=True, null=True)
     data_recebimento = models.DateField()
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     pagamento = models.BooleanField(default=False)
@@ -53,7 +53,7 @@ class Contas(models.Model):
 
 class Arrecadacao(models.Model):
     entidade =  models.ForeignKey(Entidade,related_name='entidade_arrecadacao', on_delete=models.CASCADE)
-    tipo_arrecadacao = models.ForeignKey(Tipo_arrecadacao, on_delete=models.CASCADE)
+    tipo_arrecadacao = models.ForeignKey(Tipo_arrecadacao, on_delete=models.CASCADE,blank=True, null=True)
     pagador = models.CharField(max_length=75)
     data_recebimento = models.DateField()
     valor = models.DecimalField(max_digits=10, decimal_places=2)
@@ -61,6 +61,3 @@ class Arrecadacao(models.Model):
     pagamento = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    
-    def __str__(self):
-        return self.tipo_arrecadacao + self.valor
