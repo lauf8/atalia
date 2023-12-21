@@ -45,12 +45,13 @@ def list_entidade_especific(request,pk):
     
     despesas = Contas.objects.filter(entidade=entidade,user = request.user).all()
     entradas = Arrecadacao.objects.filter(entidade=entidade,user = request.user).all()
-    membros = Membro.objects.filter(user = request.user).all().order_by('-id')[:5][::-1]
+    if entidade.pk == 1:
+        membros = Membro.objects.filter(user = request.user).all().order_by('-id')[:5][::-1]
+    membros = []
     patrimonios = Patrimonio.objects.filter(entidade=entidade,user = request.user).all().order_by('-id')[:5][::-1]
     valor_despesas = []
     valor_entradas = []
     a = despesas
-    print(entidade.pk)
     for x in despesas:
         valor_despesas.append(x.valor)
     
