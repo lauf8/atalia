@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from helps.idade import idade_do_usuario
 import datetime
+import pandas as pd
 #from helps.idade import idade_do_usuario
 
 
@@ -166,6 +167,7 @@ def create_mensalidade(request):
                 conta_dm.descricao = 'Mensalidade DeMolay'
                 conta_dm.user = mensalidade.user
                 conta_dm.save()
+                taxa += conta_dm.valor
 
                 arrecadao_dm = Arrecadacao()
                 arrecadao_dm.data_recebimento = datetime.date.today()
@@ -187,6 +189,7 @@ def create_mensalidade(request):
                 conta_fdj.pagamento = True
                 conta_fdj.descricao = 'Mensalidade FDJ'
                 conta_fdj.user = mensalidade.user
+                taxa += conta_fdj.valor
                 conta_fdj.save()
 
                 arrecadao_fdj = Arrecadacao()
@@ -201,7 +204,7 @@ def create_mensalidade(request):
 
                 arrecadao_loja = Arrecadacao()
                 arrecadao_loja.data_recebimento = datetime.date.today()
-                arrecadao_loja.valor = mensalidade.valor - (taxa +  arrecadao_fdj.valor + arrecadao_dm.valor)
+                arrecadao_loja.valor = mensalidade.valor - taxa
                 arrecadao_loja.pagador = mensalidade.membro.nome
                 arrecadao_loja.entidade = get_object_or_404(Entidade,pk=1)
                 arrecadao_loja.descricao = 'Mensalidade'
@@ -221,3 +224,34 @@ def create_mensalidade(request):
     return render(request, 'entidade/membros/generics/form_mensalidade.html', context)
 
  
+
+def read_excel(request):
+    if request.method == 'POST':
+        excel_file = request.FILES.get('excel_file')
+        if excel_file.name.endswith('.xlsx'):
+            df = pd.read_excel(excel_file, sheet_name='Table 2', header=1 )
+            #sheet_name seria a aba do csv, e o header é onde começa os dados do cabeçalho
+            #df = df.dropna()
+            print(df)
+            for index, row in df.iterrows():
+            # for index,row in df.iterrows(): #for para percorrer as linhas dp excel
+                cpf = row['CPF']
+                membro = Membro.objects.filter(cpf=cpf).first()
+                if membro is not None:
+                    continue
+                nome = row['Nome']
+                data_nascimento = row['Nascimento']
+                
+                
+                membro = Membro()
+                
+                membro.cpf = cpf
+                membro.data_nascimento = data_nascimento
+                membro.nome = nome
+                membro.user = request.user
+                membro.save()
+            
+            return redirect('list_members') 
+
+    return render(request, 'excel/excel.html')
+

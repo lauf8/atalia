@@ -1,5 +1,5 @@
 from django.urls import path
-from .views.views_create import (patrimonio_create, create_member,create_mensalidade, create_percapta)
+from .views.views_create import (patrimonio_create, create_member,create_mensalidade, create_percapta,read_excel)
 from .views.views_list import (list_everthing, list_patrimonio, list_patrimonio_especifc, 
                                list_entidade_especific, list_members, list_members_especific,
                                show_members,show_patrimonio)
@@ -12,6 +12,7 @@ urlpatterns = [
     path('membros/<int:pk>',list_members_especific, name='list_members_especific'),
     path('membros/create',create_member, name='create_member'),
     path('membros/<int:pk>/show',show_members, name='show_membro'),
+    path('membros/excel',read_excel, name='read_excel'),
     
     #patrimonio
     path('patrimonio/create',patrimonio_create, name='patrimonio_create'),

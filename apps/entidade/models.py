@@ -19,7 +19,7 @@ class Membro(models.Model):
     nome = models.CharField(max_length=75)
     data_nascimento = models.DateField()
     endereco = models.CharField(max_length=75, blank=True)
-    celular = PhoneNumberField(null=False, blank=False, unique=True)
+    celular = PhoneNumberField(null=False, blank=False)
     cpf = CPFField('cpf')
     ativo = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
